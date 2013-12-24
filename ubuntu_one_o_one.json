@@ -2,7 +2,7 @@
     "builders": [{
         "type": "virtualbox",
         "guest_os_type": "Ubuntu_64",
-        "iso_url": "./ubuntu-12.04.3-server-amd64.iso",
+        "iso_url": "http://ubuntu-mirror.totbb.net/ubuntu-releases/12.04.3/ubuntu-12.04.3-server-amd64.iso",
         "iso_checksum": "2cbe868812a871242cdcdd8f2fd6feb9",
         "iso_checksum_type": "md5",
         "guest_additions_url": "http://download.virtualbox.org/virtualbox/4.3.2/VBoxGuestAdditions_4.3.2.iso",
