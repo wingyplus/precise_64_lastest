@@ -2,11 +2,12 @@
     "builders": [{
         "type": "virtualbox",
         "guest_os_type": "Ubuntu_64",
+        "vm_name": "precise64",
         "iso_url": "http://ubuntu-mirror.totbb.net/ubuntu-releases/12.04.3/ubuntu-12.04.3-server-amd64.iso",
         "iso_checksum": "2cbe868812a871242cdcdd8f2fd6feb9",
         "iso_checksum_type": "md5",
-        "guest_additions_url": "http://download.virtualbox.org/virtualbox/4.3.2/VBoxGuestAdditions_4.3.2.iso",
-        "guest_additions_sha256": "f0b8fec99c65231641d5d01558abb53fe8b81f131dc71519cb7994c9e297300d",
+        "guest_additions_url": "http://download.virtualbox.org/virtualbox/4.3.6/VBoxGuestAdditions_4.3.6.iso",
+        "guest_additions_sha256": "95648fcdb5d028e64145a2fe2f2f28c946d219da366389295a61fed296ca79f0",
         "disk_size": "7000",
         "headless": false,
         "http_directory": "./http_directory",
@@ -21,10 +22,21 @@
             "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
             "initrd=/install/initrd.gz -- <enter>"
         ],
-        "ssh_username": "wingyplus",
-        "ssh_password": "wingyplus",
+        "vboxmanage": [
+            ["modifyvm", "{{ .Name }}", "--memory", "2048"],
+            ["modifyvm", "{{ .Name }}", "--cpus", "1"]
+        ],
+        "ssh_username": "vagrant",
+        "ssh_password": "vagrant",
         "ssh_wait_timeout": "25m",
-        "shutdown_command": "echo 'wingyplus' | sudo -S shutdown -P now"
+        "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now"
     }],
-    "post-processors": ["vagrant"]
+    "provisioners": [{
+        "type": "shell",
+        "script": "./provisions/shell/vagrant.sh"
+    }],
+    "post-processors": [{
+        "type": "vagrant",
+        "output": "ubuntu_12.04_amd64_{{ .Provider }}.box"
+    }]
 }
